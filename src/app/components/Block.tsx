@@ -8,6 +8,7 @@ import BoxIcons from './BoxIcons'
 import { updateNotes } from '../redux/thunks/updateNotes'
 // import uuid
 import { v4 as uuidv4 } from 'uuid';
+import { ThunkDispatch } from '@reduxjs/toolkit'
 
  
 export default function Block({data} : any){
@@ -16,7 +17,8 @@ export default function Block({data} : any){
     const [boxIcon , setBoxIcon] = useState<any>(false)
     const [isOver , setIsOver] = useState<any>(false)
 
-    const notes = useSelector((state : any) => state.notes.notes.filter((note : any) => note._id === data.note)[0])
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const notes = useSelector((state : any) => state.notes.notes.filter((note : any) => note._id === data.note)[0]) as any
 
     useEffect(() => {
         if (inputRef.current){
@@ -28,7 +30,6 @@ export default function Block({data} : any){
       dispatch(updateNotes(notes))
     }, [notes])
 
-    const dispatch = useDispatch()
     
     function handleKeyDown(e : any){
         if (e.key === "Enter"){
@@ -38,7 +39,7 @@ export default function Block({data} : any){
             note : data.note,
             type : "text",
             url : 'https://via.placeholder.com/150',
-            content : "Test",
+            content : "",
             author : data.author,
           }))
         }
@@ -69,7 +70,7 @@ export default function Block({data} : any){
 
     if (data.type === "h1"){
       return (
-        <div className='flex m-5 w-full items-center relative' onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
+        <div key={data.id} className='flex m-5 w-full items-center relative' onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
             <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
@@ -81,7 +82,7 @@ export default function Block({data} : any){
     }
     if (data.type === "h2"){
       return (
-        <div className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
+        <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
             <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
@@ -93,7 +94,7 @@ export default function Block({data} : any){
     }
     if (data.type === "h3"){
       return (
-        <div className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
+        <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
             <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
@@ -105,7 +106,7 @@ export default function Block({data} : any){
     }
     if (data.type === "image"){
       return (
-        <div className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
+        <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
             <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
@@ -117,7 +118,7 @@ export default function Block({data} : any){
     }
     if (data.type === "bullet_list"){
       return (
-        <div className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
+        <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
             <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
@@ -130,7 +131,7 @@ export default function Block({data} : any){
     }
     if (data.type === "number_list"){
       return (
-        <div className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
+        <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
             <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
@@ -142,7 +143,7 @@ export default function Block({data} : any){
     }
     if (data.type === "text") {
       return (
-        <div className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
+        <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
             <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />

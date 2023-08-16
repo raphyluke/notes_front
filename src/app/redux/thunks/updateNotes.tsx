@@ -1,16 +1,16 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AnyAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const updateNotes = createAsyncThunk(
     'notes/updateNotes',
     async (note : any, thunkAPI) => {
-        fetch(`http://localhost:3000/notes/update`, {
+        const data = await fetch(`http://localhost:3000/notes/update`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(note)
         })
-        .then(res => res.json())
+        note = await data.json();
         return note
     }
 )

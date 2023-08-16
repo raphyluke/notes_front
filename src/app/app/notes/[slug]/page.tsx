@@ -11,6 +11,7 @@ import { store } from '@/app/redux/store'
 import { getAllNotes } from '@/app/redux/thunks/getAllNotes'
 import { setUser } from '@/app/redux/slices/userSlices'
 import jwtDecode from 'jwt-decode'
+import { data } from 'autoprefixer'
 
 export default function Page({params} : {params : {slug : string}}) {
   const noteNameRef = useRef<HTMLInputElement>(null)
@@ -71,7 +72,7 @@ export default function Page({params} : {params : {slug : string}}) {
 
       </div>
       <input ref={noteNameRef} onChange={(e) => onChangeName(e)} className='w-full focus:outline-none ml-20 mt-6 font-semibold text-xl mb-8' />
-      {blocks ? blocks.map((block : any) => <Block data={block} key={block.id} />) : <div></div>}
+      {blocks ? blocks.map((block : any) => (<div key={block.id}><Block data={block} /></div>)) : <div></div>}
     </main>
   )
 }

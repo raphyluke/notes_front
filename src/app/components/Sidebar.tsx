@@ -5,14 +5,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createNotes } from '../redux/thunks/createNotes';
 import { getAllNotes } from '../redux/thunks/getAllNotes';
 import { store } from '../redux/store';
+import jwtDecode from 'jwt-decode';
+import { setUser } from '../redux/slices/userSlices';
 
 export default function Sidebar(){
     const user = useSelector((state: any) => state.user.user)
+    const notes = useSelector((state: any) => state.notes.notes)
     const dispatch = useDispatch<typeof store.dispatch>()
 
     useEffect(() => {
       if (localStorage.getItem('token')){
+        const token = jwtDecode(localStorage.getItem('token')!)
+        dispatch(setUser(token))
         dispatch(getAllNotes())
+        /* window.location.href = 'http://localhost:5173/notes/' */
+        console.log(notes)
       }
       else {
         window.location.href = 'http://localhost:5173/login'
