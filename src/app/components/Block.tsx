@@ -12,7 +12,8 @@ import { ThunkDispatch } from '@reduxjs/toolkit'
 
  
 export default function Block({data} : any){
-    const inputRef = useRef<HTMLInputElement>(null)
+    const inputRef = useRef<any>(null)
+    const urlRef = useRef<any>(null)
     const [content, setContent] = useState<any>(data.content)
     const [boxIcon , setBoxIcon] = useState<any>(false)
     const [isOver , setIsOver] = useState<any>(false)
@@ -67,6 +68,17 @@ export default function Block({data} : any){
           author : data.author,
         }))
     }
+    function changeImageUrl(e : any){
+      dispatch(editBlock({
+        id : data.id,
+        order : data.order,
+        note : data.note,
+        type : data.type,
+        url : urlRef.current.value,
+        content : data.content,
+        author : data.author,
+      }))
+    }
 
     if (data.type === "h1"){
       return (
@@ -106,13 +118,19 @@ export default function Block({data} : any){
     }
     if (data.type === "image"){
       return (
-        <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
+        <div key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
             <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           {boxIcon ? <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div> : <div></div>}
           <img src={data.url} alt='image' className='w-1/2' />
+          <div className='flex items-center absolute bottom-2 left-16 z-10 bg-slate-50 h-8'>
+            <input ref={urlRef} type="text" className='px-2' />
+            <button className='px-4' onClick={(e) => changeImageUrl(e)}>
+              Add
+            </button>
+          </div>
         </div>
       )
     }
@@ -144,12 +162,12 @@ export default function Block({data} : any){
     if (data.type === "text") {
       return (
         <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
-          {isOver ? <div className='flex w-14'>
+          {isOver ? <div className='flex w-14 top-0 absolute'>
             <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           {boxIcon ? <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div> : <div></div>}
-          <input value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='bg-transparent w-full focus:outline-none ml-2 text-lg' placeholder='Add a task...' />
+          {isOver ? <textarea value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='bg-transparent w-full ml-16 text-lg' placeholder='Add a task...' /> : <textarea value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='bg-transparent w-full focus:outline-none text-lg' placeholder='Add a task...' />}
         </div>
       )
     }

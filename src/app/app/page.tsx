@@ -1,15 +1,14 @@
 'use client'
-import Image from 'next/image'
-import Dropdown from '../components/Dropdown'
 // import font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faChevronRight, faPlus, faGripVertical } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import Block from '../components/Block'
-import jwtDecode from 'jwt-decode'
+import { useDispatch } from 'react-redux'
 
 export default function Home() {
   const [data , setData] = useState<any>(null)
+  const dispatch = useDispatch<any>()
   useEffect(() => {
     if (!localStorage.getItem('token')){
       window.location.href = 'http://localhost:5173/login'

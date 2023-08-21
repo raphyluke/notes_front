@@ -26,6 +26,6 @@ export default function Loading(){
           window.location.href = 'http://localhost:5173/login'
         }
 
-    }, [])
+    }, [dispatch])
     return <p>Loading</p>
 }
