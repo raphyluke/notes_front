@@ -28,12 +28,44 @@ export default function Block({data} : any){
     },[data.content])
 
     useEffect(() => {
+      // check if inputRef is a textarea
+      if (inputRef.current && inputRef.current.nodeName === "TEXTAREA"){
+        inputRef.current.style.height = 'auto';
+        inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
+      }
+    }, [])
+
+    useEffect(() => {
       dispatch(updateNotes(notes))
     }, [notes])
 
+    function onPlusClick(e : any){
+      dispatch(addBlock({
+        id : uuidv4(),
+        order : data.order + 1,
+        note : data.note,
+        type : "text",
+        url : 'https://via.placeholder.com/150',
+        content : "",
+        author : data.author,
+      }))
+    }
+
     
     function handleKeyDown(e : any){
-        if (e.key === "Enter"){
+        if (e.key === "Enter" && data.type !== "text"){
+          dispatch(addBlock({
+            id : uuidv4(),
+            order : data.order + 1,
+            note : data.note,
+            type : "text",
+            url : 'https://via.placeholder.com/150',
+            content : "",
+            author : data.author,
+          }))
+        }
+        // if enter and shift at the same time
+        else if (e.key === "Enter" && e.shiftKey){
           dispatch(addBlock({
             id : uuidv4(),
             order : data.order + 1,
@@ -80,11 +112,16 @@ export default function Block({data} : any){
       }))
     }
 
+    function textAreaInputRule(e : any){
+      e.target.style.height = 'auto';
+      e.target.style.height = e.target.scrollHeight + 'px';
+    }
+
     if (data.type === "h1"){
       return (
         <div key={data.id} className='flex m-5 w-full items-center relative' onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
-            <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
+            <FontAwesomeIcon onClick={(e) => onPlusClick(e)} icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           <input value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='bg-transparent w-full focus:outline-none ml-2 text-3xl' placeholder='Add a task...' />
@@ -96,7 +133,7 @@ export default function Block({data} : any){
       return (
         <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
-            <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
+            <FontAwesomeIcon onClick={(e) => onPlusClick(e)} icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           {boxIcon ? <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div> : <div></div>}
@@ -108,7 +145,7 @@ export default function Block({data} : any){
       return (
         <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
-            <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
+            <FontAwesomeIcon onClick={(e) => onPlusClick(e)} icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           {boxIcon ? <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div> : <div></div>}
@@ -120,7 +157,7 @@ export default function Block({data} : any){
       return (
         <div key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
-            <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
+            <FontAwesomeIcon onClick={(e) => onPlusClick(e)} icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           {boxIcon ? <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div> : <div></div>}
@@ -138,7 +175,7 @@ export default function Block({data} : any){
       return (
         <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
-            <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
+            <FontAwesomeIcon onClick={(e) => onPlusClick(e)} icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           {boxIcon ? <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div> : <div></div>}
@@ -151,7 +188,7 @@ export default function Block({data} : any){
       return (
         <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14'>
-            <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
+            <FontAwesomeIcon onClick={(e) => onPlusClick(e)} icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           {boxIcon ? <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div> : <div></div>}
@@ -163,11 +200,11 @@ export default function Block({data} : any){
       return (
         <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14 top-0 absolute'>
-            <FontAwesomeIcon icon={faPlus} className='m-2' width={10} color='grey' />
+            <FontAwesomeIcon onClick={(e) => onPlusClick(e)} icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           {boxIcon ? <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div> : <div></div>}
-          {isOver ? <textarea value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='bg-transparent w-full ml-16 text-lg' placeholder='Add a task...' /> : <textarea value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='bg-transparent w-full focus:outline-none text-lg' placeholder='Add a task...' />}
+          {isOver ? <textarea onInput={(e) => textAreaInputRule(e)} value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='overflow-hidden resize-none bg-transparent w-full ml-16 text-lg' placeholder='Add a task...' /> : <textarea value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} onInput={(e) => textAreaInputRule(e)} className='overflow-hidden resize-none bg-transparent w-full focus:outline-none text-lg ml-2.5' placeholder='Add a task...' />}
         </div>
       )
     }

@@ -75,7 +75,7 @@ export default function Dropdown(){
                     className="flex text-red-600 items-center gap-3 pl-2 pt-1.5 pb-1.5 w-full"
                   >
                     <FontAwesomeIcon icon={faTrash} />
-                    <p className="text-sm">Delete</p>
+                    <p className="text-sm hover:cursor-pointer">Delete</p>
                   </div>
                 </div>
               )}
