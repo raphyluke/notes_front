@@ -9,13 +9,13 @@ export const getAllNotes = createAsyncThunk(
             const token = localStorage.getItem('token') as string;
             const response = await fetch('http://localhost:3000/notes/get?email=' + jwtDecode(token).email, {
                 headers: {
-                    Authentication : `Bearer ${token}`
+                    "authorization": "Bearer " + token,
                 },
             });
-            if (!response.ok) {
-                throw new Error('Failed to fetch notes');
+            if (response.status === 401) {
+                localStorage.removeItem('token');
+                window.location.href = 'http://localhost:5173/login';
             }
-
             const data = await response.json();
             return data;
         } catch (error) {

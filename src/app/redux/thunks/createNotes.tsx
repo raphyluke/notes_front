@@ -7,12 +7,17 @@ export const createNotes = createAsyncThunk(
         const response = await fetch('http://localhost:3000/notes/create', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': 'Bearer ' + localStorage.getItem('token'),
             },
             body: JSON.stringify({
                 email : jwtDecode(localStorage.getItem('token')).email
             })
         })
+        if (response.status === 401){
+            localStorage.removeItem('token')
+            window.location.href = 'http://localhost:5173/login'
+        }
         const result = await response.json()
         return result
     }

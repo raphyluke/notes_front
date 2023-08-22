@@ -1,8 +1,7 @@
-import { fa1, fa2, fa3, faAlignJustify, faDotCircle, faImage } from "@fortawesome/free-solid-svg-icons"
+import { faAlignJustify, faDotCircle, faImage } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { changeTypeBlock } from "../redux/slices/notesSlices"
 import { useDispatch } from "react-redux"
-import { test } from "node:test"
 
 export default function BoxIcons({data, setBoxIcon} : {data : any, setBoxIcon : any}){
     const dispatch = useDispatch()

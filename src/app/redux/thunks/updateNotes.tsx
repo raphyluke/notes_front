@@ -6,7 +6,8 @@ export const updateNotes = createAsyncThunk(
         const data = await fetch(`http://localhost:3000/notes/update`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'authorization': 'Bearer ' + localStorage.getItem('token'),
             },
             body: JSON.stringify(note)
         })

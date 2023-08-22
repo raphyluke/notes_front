@@ -1,12 +1,11 @@
 'use client'
-import { use, useState } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots, faEllipsis, faListDots, faTrash } from "@fortawesome/free-solid-svg-icons"
+import {  faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { getAllNotes } from "../redux/thunks/getAllNotes"
-import { AnyAction, ThunkAction, ThunkDispatch } from "@reduxjs/toolkit"
 import jwtDecode from "jwt-decode"
 import {useRouter } from "next/navigation"
 export default function Dropdown(){
@@ -30,14 +29,23 @@ export default function Dropdown(){
       fetch("http://localhost:3000/notes/delete", {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "authorization": "Bearer " + localStorage.getItem('token'),
         },
         body: JSON.stringify({
           id : note._id,
           email : jwtDecode<any>(localStorage.getItem('token')).email
         })
       })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 200){
+          return res.json()
+        }
+        if (res.status === 401){
+          localStorage.removeItem('token')
+          window.location.href = 'http://localhost:5173/login'
+        }
+      })
       .then(async result => {
         if(result.statusCode === 200){
           await dispatch(getAllNotes())
