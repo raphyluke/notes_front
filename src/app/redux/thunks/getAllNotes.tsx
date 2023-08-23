@@ -1,13 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
-import { addNotes } from "../slices/notesSlices";
 
-export const getAllNotes = createAsyncThunk(
+interface Note {
+    // Define the properties of a note object here
+}
+
+export const getAllNotes = createAsyncThunk<Note[], void, { rejectValue: Error }>(
     'notes/getAllNotes',
     async (_, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token') as string;
-            const response = await fetch('http://localhost:3000/notes/get?email=' + jwtDecode(token).email, {
+            const decodedToken = jwtDecode(token) as Record<string, unknown>;
+            const email = decodedToken.email as string;
+            const response = await fetch('http://localhost:3000/notes/get?email=' + email, {
                 headers: {
                     "authorization": "Bearer " + token,
                 },
@@ -16,10 +21,13 @@ export const getAllNotes = createAsyncThunk(
                 localStorage.removeItem('token');
                 window.location.href = 'http://localhost:5173/login';
             }
-            const data = await response.json();
+            const data = await response.json() as Note[];
             return data;
         } catch (error) {
-            return rejectWithValue(error.message);
+            if (typeof error === 'string') {
+                return rejectWithValue(new Error(error));
+            }
+            throw error;
         }
     }
 );

@@ -11,6 +11,10 @@ export const updateNotes = createAsyncThunk(
             },
             body: JSON.stringify(note)
         })
+        if (data.status === 401){
+            localStorage.removeItem('token')
+            window.location.href = 'http://localhost:5173/login'
+        }
         note = await data.json();
         return note
     }

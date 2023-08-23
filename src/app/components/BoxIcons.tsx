@@ -4,7 +4,10 @@ import { changeTypeBlock } from "../redux/slices/notesSlices"
 import { useDispatch } from "react-redux"
 
 export default function BoxIcons({data, setBoxIcon} : {data : any, setBoxIcon : any}){
+
     const dispatch = useDispatch()
+
+    // Change the type of the block
     function changeType(type : any){
         dispatch(changeTypeBlock({
             id : data.id,
@@ -17,6 +20,7 @@ export default function BoxIcons({data, setBoxIcon} : {data : any, setBoxIcon : 
         }))
         setBoxIcon(false)
     }
+    
     return <div className=" grid grid-cols-3 border w-fit bg-white">
         <div className="flex items-center justify-center w-10" onClick={() => changeType("h1")}>
             <p>H1</p>

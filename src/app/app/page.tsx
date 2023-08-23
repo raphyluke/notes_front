@@ -1,19 +1,17 @@
 'use client'
 // import font awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faChevronRight, faPlus, faGripVertical } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from 'react'
-import Block from '../components/Block'
-import { useDispatch } from 'react-redux'
+import { faHome, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { useEffect } from 'react'
 
 export default function Home() {
-  const [data , setData] = useState<any>(null)
-  const dispatch = useDispatch<any>()
+
   useEffect(() => {
     if (!localStorage.getItem('token')){
       window.location.href = 'http://localhost:5173/login'
     }
   }, []);
+
   return (
     <main className="h-full w-9/12">
       <div className="flex ml-16 w-full items-center mt-2">
@@ -23,9 +21,6 @@ export default function Home() {
         <FontAwesomeIcon icon={faChevronRight} className="m-3" width={10} color='grey' />
         <p className="m-3">Coucou</p>
       </div>
-      <i className='ml-20 mt-6 font-semibold text-xl mb-8'/>
-      <Block data="Test" />
-      {data ? <img className='ml-20 rounded-full' src={data.picture} /> : <div></div>}
     </main>
   )
 }

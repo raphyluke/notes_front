@@ -4,14 +4,17 @@ import jwtDecode from "jwt-decode";
 export const createNotes = createAsyncThunk(
     'notes/createNotes',
     async () => {
+        const token = localStorage.getItem('token') as string;
+        const decodedToken = jwtDecode(token) as Record<string, unknown>;
+        const email = decodedToken.email as string;
         const response = await fetch('http://localhost:3000/notes/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': 'Bearer ' + localStorage.getItem('token'),
+                'authorization': 'Bearer ' + token,
             },
             body: JSON.stringify({
-                email : jwtDecode(localStorage.getItem('token')).email
+                email
             })
         })
         if (response.status === 401){

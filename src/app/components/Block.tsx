@@ -12,33 +12,43 @@ import { ThunkDispatch } from '@reduxjs/toolkit'
 
  
 export default function Block({data} : any){
+    // React hooks
     const inputRef = useRef<any>(null)
     const urlRef = useRef<any>(null)
     const [content, setContent] = useState<any>(data.content)
     const [boxIcon , setBoxIcon] = useState<any>(false)
     const [isOver , setIsOver] = useState<any>(false)
 
+    // Redux hooks
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     const notes = useSelector((state : any) => state.notes.notes.filter((note : any) => note._id === data.note)[0]) as any
 
+    // Set the content of the input
     useEffect(() => {
         if (inputRef.current){
             inputRef.current.value = content
         }
     },[data.content])
 
+    // Set the height of the textarea
     useEffect(() => {
       // check if inputRef is a textarea
       if (inputRef.current && inputRef.current.nodeName === "TEXTAREA"){
         inputRef.current.style.height = 'auto';
         inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
       }
+      if (inputRef.current){
+        inputRef.current.focus();
+        inputRef.current.setSelectionRange(content.length, content.length);
+      }
     }, [])
 
+    // Update the notes
     useEffect(() => {
       dispatch(updateNotes(notes))
     }, [notes])
 
+    // Add a block with the plus icon
     function onPlusClick(e : any){
       dispatch(addBlock({
         id : uuidv4(),
@@ -51,7 +61,7 @@ export default function Block({data} : any){
       }))
     }
 
-    
+    // Handle the keydown
     function handleKeyDown(e : any){
         if (e.key === "Enter" && data.type !== "text"){
           dispatch(addBlock({
@@ -89,6 +99,8 @@ export default function Block({data} : any){
           }))
         }
     }
+
+    // Handle the change of the input
     function handleChange(e : any){
         setContent(e.target.value)
         dispatch(editBlock({
@@ -101,6 +113,8 @@ export default function Block({data} : any){
           author : data.author,
         }))
     }
+
+    // Change the image url
     function changeImageUrl(e : any){
       dispatch(editBlock({
         id : data.id,
@@ -113,6 +127,7 @@ export default function Block({data} : any){
       }))
     }
 
+    // Set the height of the textarea
     function textAreaInputRule(e : any){
       e.target.style.height = 'auto';
       e.target.style.height = e.target.scrollHeight + 'px';
@@ -200,12 +215,12 @@ export default function Block({data} : any){
     if (data.type === "text") {
       return (
         <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
-          {isOver ? <div className='flex w-14 top-0 absolute'>
+          {isOver ? <div className='flex w-14 top-[-3px] absolute'>
             <FontAwesomeIcon onClick={(e) => onPlusClick(e)} icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           {boxIcon ? <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div> : <div></div>}
-          {isOver ? <textarea rows={1} onInput={(e) => textAreaInputRule(e)} value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='overflow-hidden resize-none bg-transparent w-full ml-16 text-lg' placeholder='Add a task...' /> : <textarea value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} onInput={(e) => textAreaInputRule(e)} rows={1} className='overflow-hidden resize-none bg-transparent w-full focus:outline-none text-lg ml-2.5 h-fit' placeholder='Add a task...' />}
+          {isOver ? <textarea rows={1} onInput={(e) => textAreaInputRule(e)} value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='focus:outline-none overflow-hidden resize-none bg-transparent w-full ml-16 text-lg' placeholder='Add a task...' /> : <textarea value={data.content} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} onInput={(e) => textAreaInputRule(e)} rows={1} className='overflow-hidden resize-none bg-transparent w-full focus:outline-none text-lg ml-2.5 h-fit' placeholder='Add a task...' />}
         </div>
       )
     }

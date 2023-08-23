@@ -9,10 +9,12 @@ import jwtDecode from 'jwt-decode';
 import { setUser } from '../redux/slices/userSlices';
 
 export default function Sidebar(){
+    // Redux hooks
     const user = useSelector((state: any) => state.user.user)
     const notes = useSelector((state: any) => state.notes.notes)
     const dispatch = useDispatch<typeof store.dispatch>()
 
+    // Get all notes and set the user
     useEffect(() => {
       if (localStorage.getItem('token')){
         const token = jwtDecode(localStorage.getItem('token')!)
@@ -26,6 +28,7 @@ export default function Sidebar(){
       }
     }, [])
 
+    // Create a note
     function createNote(){
       dispatch(createNotes())
     }

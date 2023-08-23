@@ -1,7 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Dropdown from '../components/Dropdown'
 import Sidebar from '../components/Sidebar'
 import AppProvider from '../redux/AppProvider'
 const inter = Inter({ subsets: ['latin'] })

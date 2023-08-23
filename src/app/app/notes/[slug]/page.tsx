@@ -13,16 +13,18 @@ import { setUser } from '@/app/redux/slices/userSlices'
 import jwtDecode from 'jwt-decode'
 
 export default function Page({params} : {params : {slug : string}}) {
-  const noteNameRef = useRef<HTMLInputElement>(null)
+  // Redux hooks
   const notes = useSelector((state : any) => state.notes.notes)
   const dispatch = useDispatch<typeof store.dispatch>()
-
-  const [currentNote, setCurrentNote] = useState<any>(null)
   const loading = useSelector((state : any) => state.notes.getAllLoading)
   const error = useSelector((state : any) => state.notes.getAllError)
-
+  
+  // React hooks
+  const noteNameRef = useRef<HTMLInputElement>(null)
+  const [currentNote, setCurrentNote] = useState<any>(null)
   const [blocks, setBlocks] = useState<any>(null)
 
+  // Get all notes and set the user
   useEffect(() => {
     if (localStorage.getItem('token')) {
       const token = jwtDecode(localStorage.getItem('token')!)
@@ -31,22 +33,25 @@ export default function Page({params} : {params : {slug : string}}) {
     dispatch(getAllNotes())
   }, [dispatch])
 
+  // Set the current note
   useEffect(() => {
     if (!loading && !error) {
       const note = notes.find((note: any) => note._id === params.slug)
       if (note) {
         setCurrentNote(note)
-        noteNameRef.current!.value = note.title // Check if current is not null before assigning the value
+        noteNameRef.current!.value = note.title
       }
     }
   }, [loading, notes, params.slug])
 
+  // Set the blocks
   useEffect(() => {
     if (currentNote) {
       setBlocks(currentNote.blocs)
     }
   }, [currentNote])  // Add dependency on 'currentNote'
 
+  // Change the note name
   function onChangeName(e: any) {
     const updatedNote = {
       ...notes.filter((note: any) => note._id === params.slug)[0],
