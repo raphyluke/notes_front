@@ -12,7 +12,7 @@ export const getAllNotes = createAsyncThunk<Note[], void, { rejectValue: Error }
             const token = localStorage.getItem('token') as string;
             const decodedToken = jwtDecode(token) as Record<string, unknown>;
             const email = decodedToken.email as string;
-            const response = await fetch('http://localhost:3000/notes/get?email=' + email, {
+            const response = await fetch('http://localhost:3000/notes/get/' + email, {
                 headers: {
                     "authorization": "Bearer " + token,
                 },

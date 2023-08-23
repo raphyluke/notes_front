@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { getAllNotes } from "../redux/thunks/getAllNotes"
 import jwtDecode from "jwt-decode"
 import {useRouter } from "next/navigation"
@@ -22,6 +22,7 @@ export default function Dropdown(){
     // Get all notes
     useEffect(() => {
       setData(notes)
+      console.log(notes)
     }, [notes])
     
     // Handle the click on the dropdown

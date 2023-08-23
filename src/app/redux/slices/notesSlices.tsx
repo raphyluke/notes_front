@@ -78,7 +78,6 @@ const notesSlice = createSlice({
         });
         builder.addCase(createNotes.fulfilled, (state, action) => {
             state.createLoading = false;
-            // action.payload is an object and I want him to be inside the notes array
             state.notes = [...state.notes, action.payload]
         });
         builder.addCase(createNotes.rejected, (state) => {

@@ -22,6 +22,6 @@ export const createNotes = createAsyncThunk(
             window.location.href = 'http://localhost:5173/login'
         }
         const result = await response.json()
-        return result
+        return result.note
     }
 )
