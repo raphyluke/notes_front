@@ -70,10 +70,10 @@ export default function Page({params} : {params : {slug : string}}) {
       <div className="flex ml-16 w-full items-center mt-2">
         <FontAwesomeIcon icon={faHome} className="m-3" width={24} color='grey' />
         <FontAwesomeIcon icon={faChevronRight} className="m-3" width={10} color='grey' />
-        {blocks ? <p className="m-3">{noteNameRef.current?.value}</p> : <p></p>}
+        {blocks && <p className="m-3">{noteNameRef.current?.value}</p>}
       </div>
       <input ref={noteNameRef} onChange={(e) => onChangeName(e)} className='w-full focus:outline-none ml-20 mt-6 font-semibold text-xl mb-8' />
-      {blocks ? blocks.map((block: any) => (<div key={block.id}><Block data={block} /></div>)) : <div></div>}
+      {blocks && blocks.map((block: any) => (<div key={block.id}><Block data={block} /></div>))}
     </main>
   )
 }

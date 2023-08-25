@@ -11,7 +11,6 @@ import {useRouter } from "next/navigation"
 
 export default function Dropdown(){
     // React hooks
-    const [open, setOpen] = useState(true)
     const [data, setData] = useState([])
     const [selected, setSelected] = useState(false)
 
@@ -24,11 +23,6 @@ export default function Dropdown(){
       setData(notes)
       console.log(notes)
     }, [notes])
-    
-    // Handle the click on the dropdown
-    function handleClick(){
-      setOpen(!open)
-    }
 
     const router = useRouter()
 

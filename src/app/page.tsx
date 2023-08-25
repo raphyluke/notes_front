@@ -1,9 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import jwtDecode from 'jwt-decode'
 
 export default function Home() {
-  const [data , setData] = useState<any>(null)
   useEffect(() => {
     // Get the data params from the url
     const url = window.location.href;
