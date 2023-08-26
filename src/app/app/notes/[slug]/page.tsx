@@ -30,6 +30,7 @@ export default function Page({params} : {params : {slug : string}}) {
       const token = jwtDecode(localStorage.getItem('token')!)
       dispatch(setUser(token))
     }
+    
     dispatch(getAllNotes())
   }, [dispatch])
 
