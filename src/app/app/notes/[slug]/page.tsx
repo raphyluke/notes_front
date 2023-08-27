@@ -74,7 +74,7 @@ export default function Page({params} : {params : {slug : string}}) {
         {blocks && <p className="m-3">{noteNameRef.current?.value}</p>}
       </div>
       <input ref={noteNameRef} onChange={(e) => onChangeName(e)} className='w-full focus:outline-none ml-20 mt-6 font-semibold text-xl mb-8' />
-      {blocks && blocks.map((block: any) => (<div key={block.id}><Block data={block} /></div>))}
+      {blocks && blocks.map((block: any, index : any) => (<div key={block.id}><Block data={block} index={index} /></div>))}
     </main>
   )
 }

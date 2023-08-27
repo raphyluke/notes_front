@@ -33,7 +33,11 @@ const notesSlice = createSlice({
         addBlock: (state, action: PayloadAction<RootState['bloc']>) => {
             const noteIndex = state.notes.findIndex((note) => note._id === action.payload.note);
             if (noteIndex !== -1) {
-                state.notes[noteIndex].blocs.push(action.payload);
+                const blocIndex = action.payload.index as number;
+                // delete the index property from the bloc
+                delete action.payload.index;
+                // I want to add the bloc after the bloc with the index
+                state.notes[noteIndex].blocs.splice(blocIndex + 1, 0, action.payload);
             }
         },
         editBlock: (state, action: PayloadAction<RootState['bloc']>) => {
@@ -99,7 +103,7 @@ const notesSlice = createSlice({
         });
         builder.addCase(getAllNotes.fulfilled, (state, action) => {
             state.getAllLoading = false;
-            state.notes = action.payload;
+            state.notes = action.payload as Note[];
         });
         builder.addCase(getAllNotes.rejected, (state) => {
             state.getAllLoading = false;

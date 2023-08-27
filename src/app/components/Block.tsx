@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ThunkDispatch } from '@reduxjs/toolkit'
 
  
-export default function Block({data} : any){
+export default function Block({data, index} : any){
     // React hooks
     const inputRef = useRef<any>(null)
     const urlRef = useRef<any>(null)
@@ -52,12 +52,13 @@ export default function Block({data} : any){
     function onPlusClick(e : any){
       dispatch(addBlock({
         id : uuidv4(),
-        order : data.order + 1,
+        order : index + 1,
         note : data.note,
         type : "text",
         url : 'https://via.placeholder.com/150',
         content : "",
         author : data.author,
+        index : index,
       }))
     }
 
@@ -67,35 +68,38 @@ export default function Block({data} : any){
           if (data.type !== "text" && data.type !== "bullet_list"){
             dispatch(addBlock({
               id : uuidv4(),
-              order : data.order + 1,
+              order : index + 1,
               note : data.note,
               type : "text",
               url : 'https://via.placeholder.com/150',
               content : "",
               author : data.author,
+              index : index,
             }))
           }
           if (data.type === "bullet_list"){
             dispatch(addBlock({
               id : uuidv4(),
-              order : data.order + 1,
+              order : index + 1,
               note : data.note,
               type : "bullet_list",
               url : 'https://via.placeholder.com/150',
               content : "",
               author : data.author,
+              index : index,
             }))
           }
           if (e.shiftKey){
             e.preventDefault()
             dispatch(addBlock({
               id : uuidv4(),
-              order : data.order + 1,
+              order : index + 1,
               note : data.note,
               type : "text",
               url : 'https://via.placeholder.com/150',
               content : "",
               author : data.author,
+              index : index,
             }))
           }
         }

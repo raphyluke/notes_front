@@ -6,6 +6,8 @@ export interface Bloc {
     url: string
     content: string
     author: string
+    // index is a number which don't have to be present everytime
+    index?: number
 }
 
 // create Note type
