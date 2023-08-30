@@ -77,17 +77,33 @@ export default function Block({data, index} : any){
               index : index,
             }))
           }
+          // bullet list and textarea
           if (data.type === "bullet_list"){
-            dispatch(addBlock({
-              id : uuidv4(),
-              order : index + 1,
-              note : data.note,
-              type : "bullet_list",
-              url : 'https://via.placeholder.com/150',
-              content : "",
-              author : data.author,
-              index : index,
-            }))
+            if (inputRef.current.nodeName === "TEXTAREA"){
+              e.preventDefault()
+              dispatch(addBlock({
+                id : uuidv4(),
+                order : index + 1,
+                note : data.note,
+                type : "bullet_list",
+                url : 'https://via.placeholder.com/150',
+                content : "",
+                author : data.author,
+                index : index,
+              }))
+            }
+            else {
+              dispatch(addBlock({
+                id : uuidv4(),
+                order : index + 1,
+                note : data.note,
+                type : "bullet_list",
+                url : 'https://via.placeholder.com/150',
+                content : "",
+                author : data.author,
+                index : index,
+              }))
+            }
           }
           if (e.shiftKey){
             e.preventDefault()
@@ -206,13 +222,14 @@ export default function Block({data, index} : any){
     if (data.type === "bullet_list"){
       return (
         <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
-          {isOver ? <div className='flex w-14'>
+          {isOver ? <div className='flex w-14 absolute'>
             <FontAwesomeIcon onClick={(e) => onPlusClick(e)} icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           {boxIcon && <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div>}
-          <div className='ml-2 mr-2'>•</div>
-          <input onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='bg-transparent w-full focus:outline-none ml-2 text-lg' placeholder='Add a task...' />
+          <div className='ml-16 mr-2 absolute top-0'>•</div>
+          {isOver ? <textarea rows={1} onInput={(e) => textAreaInputRule(e)} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='focus:outline-none overflow-hidden resize-none bg-transparent w-full ml-28 text-lg' placeholder='Add a task...' /> 
+          : <textarea onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} onInput={(e) => textAreaInputRule(e)} rows={1} className='overflow-hidden resize-none bg-transparent w-full focus:outline-none text-lg ml-16' placeholder='Add a task...' />}
         </div>
       )
     }
