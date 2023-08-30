@@ -69,7 +69,7 @@ export default function Dropdown(){
       <div className='m-5 relative'>
         <div className='flex justify-between flex-col'>
           {data.map((note: any) => (
-            <div key={note._id} className="flex justify-between items-center">
+            <div key={note._id} className="flex justify-between items-center pb-2">
               <Link href={"/app/notes/" + note._id}>{note.title}</Link>
               <FontAwesomeIcon 
                 icon={faEllipsis} 
