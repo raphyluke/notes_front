@@ -45,7 +45,7 @@ export default function Page({params} : {params : {slug : string}}) {
     }
   }, [loading, notes, params.slug])
 
-  // Set the blocks
+  // Set the blocks and note name
   useEffect(() => {
     if (currentNote) {
       setBlocks(currentNote.blocs)
@@ -73,7 +73,7 @@ export default function Page({params} : {params : {slug : string}}) {
         <FontAwesomeIcon icon={faChevronRight} className="m-3" width={10} color='grey' />
         {blocks && <p className="m-3">{noteNameRef.current?.value}</p>}
       </div>
-      <input ref={noteNameRef} onChange={(e) => onChangeName(e)} className='w-full focus:outline-none ml-20 mt-6 font-semibold text-xl mb-8' />
+      <input ref={noteNameRef} onChange={(e) => onChangeName(e)} className='pt-14 w-full focus:outline-none ml-20 mt-6 font-semibold text-xl mb-6 z-20' />
       {blocks && blocks.map((block: any, index : any) => (<div key={block.id}><Block data={block} index={index} /></div>))}
     </main>
   )
