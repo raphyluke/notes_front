@@ -57,6 +57,7 @@ export default function Block({data, index} : any){
         type : "text",
         url : 'https://via.placeholder.com/150',
         content : "",
+        checked : false,
         author : data.author,
         index : index,
       }))
@@ -73,6 +74,7 @@ export default function Block({data, index} : any){
               type : "text",
               url : 'https://via.placeholder.com/150',
               content : "",
+              checked : false,
               author : data.author,
               index : index,
             }))
@@ -88,6 +90,7 @@ export default function Block({data, index} : any){
                 type : "bullet_list",
                 url : 'https://via.placeholder.com/150',
                 content : "",
+                checked : false,
                 author : data.author,
                 index : index,
               }))
@@ -100,6 +103,7 @@ export default function Block({data, index} : any){
                 type : "bullet_list",
                 url : 'https://via.placeholder.com/150',
                 content : "",
+                checked : false,
                 author : data.author,
                 index : index,
               }))
@@ -114,6 +118,7 @@ export default function Block({data, index} : any){
               type : "text",
               url : 'https://via.placeholder.com/150',
               content : "",
+              checked : false,
               author : data.author,
               index : index,
             }))
@@ -128,6 +133,7 @@ export default function Block({data, index} : any){
             type : data.type,
             url : data.url,
             content : data.content,
+            checked : data.checked,
             author : data.author,
           }))
         }
@@ -143,6 +149,7 @@ export default function Block({data, index} : any){
           type : data.type,
           url : data.url,
           content : e.target.value,
+          checked : data.checked,
           author : data.author,
         }))
     }
@@ -156,6 +163,7 @@ export default function Block({data, index} : any){
         type : data.type,
         url : urlRef.current.value,
         content : data.content,
+        checked : data.checked,
         author : data.author,
       }))
     }
