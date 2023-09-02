@@ -1,4 +1,4 @@
-import { faAlignJustify, faDotCircle, faImage } from "@fortawesome/free-solid-svg-icons"
+import { faAlignJustify, faCheck, faDotCircle, faImage } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { changeTypeBlock } from "../redux/slices/notesSlices"
 import { useDispatch } from "react-redux"
@@ -16,6 +16,7 @@ export default function BoxIcons({data, setBoxIcon} : {data : any, setBoxIcon : 
             type : type,
             url : data.url,
             content : data.content,
+            checked : data.checked,
             author : data.author,
         }))
         setBoxIcon(false)
@@ -39,6 +40,9 @@ export default function BoxIcons({data, setBoxIcon} : {data : any, setBoxIcon : 
         </div>
         <div className="flex items-center justify-center w-10" onClick={() => changeType("bullet_list")}>
             <FontAwesomeIcon icon={faDotCircle} className='m-2' width={10} color='grey' />
+        </div>
+        <div className="flex items-center justify-center w-10" onClick={() => changeType("todolist")}>
+            <FontAwesomeIcon icon={faCheck} className='m-2' width={10} color='grey' />
         </div>
     </div>
 }
