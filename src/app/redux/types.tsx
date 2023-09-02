@@ -2,8 +2,9 @@ export interface Bloc {
     id: string
     order: number
     note: string
-    type: "h1" | "h2" | "h3" | "text" | "image" | "bullet_list" | "number_list"
+    type: "h1" | "h2" | "h3" | "text" | "image" | "bullet_list" | "number_list" | "todolist"
     url: string
+    checked: boolean
     content: string
     author: string
     // index is a number which don't have to be present everytime

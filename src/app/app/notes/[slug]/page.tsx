@@ -84,18 +84,14 @@ export default function Page({params} : {params : {slug : string}}) {
   }
 
   return (
-    <main className="h-full w-9/12">
-      <div className="flex ml-16 w-full items-center mt-2">
+    <main className="h-full w-9/12 ml-80">
+      <div className="fixed top-0 bg-white z-10 flex ml-16 w-full items-center pt-2">
         <FontAwesomeIcon icon={faHome} className="m-3" width={24} color='grey' />
         <FontAwesomeIcon icon={faChevronRight} className="m-3" width={10} color='grey' />
         {blocks && <p className="m-3">{noteNameRef.current?.value}</p>}
       </div>
       <input ref={noteNameRef} onChange={(e) => onChangeName(e)} className='w-full focus:outline-none ml-20 mt-6 font-semibold text-xl mb-8' />
-      {blocks && blocks.map((block: any, index : any) => (<div key={block.id}
-          draggable
-          onDragStart={(e) => handleDragStart(e, index)}
-          onDragOver={handleDragOver}
-          onDrop={(e) => handleDrop(e, index)}><Block data={block} index={index} /></div>))}
+      {blocks && blocks.map((block: any, index : any) => (<div key={block.id}><Block data={block} index={index} /></div>))}
     </main>
   )
 }

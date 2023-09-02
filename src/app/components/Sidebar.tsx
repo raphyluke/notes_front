@@ -34,7 +34,7 @@ export default function Sidebar(){
     }
 
     return (
-        <aside className='flex flex-col w-80 h-full shadow-sm shadow-black'>
+        <aside className='flex flex-col w-80 h-full fixed shadow-sm shadow-black'>
           <div className='flex items-center m-5 justify-between'>
             <div className='flex items-center'>
               <img src={user.picture} alt={user.email} className='h-6 w-6 bg-slate-600'/>

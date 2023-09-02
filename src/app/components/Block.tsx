@@ -78,7 +78,7 @@ export default function Block({data, index} : any){
             }))
           }
           // bullet list and textarea
-          if (data.type === "bullet_list"){
+          if (data.type === "bullet_list" && inputRef.current.nodeName === "TEXTAREA"){
             if (inputRef.current.nodeName === "TEXTAREA"){
               e.preventDefault()
               dispatch(addBlock({
@@ -105,7 +105,7 @@ export default function Block({data, index} : any){
               }))
             }
           }
-          if (e.shiftKey){
+          else if (e.shiftKey){
             e.preventDefault()
             dispatch(addBlock({
               id : uuidv4(),
@@ -118,6 +118,7 @@ export default function Block({data, index} : any){
               index : index,
             }))
           }
+          
         }
         if (e.key === "Backspace" && e.target.value === ""){
           dispatch(deleteBlock({
