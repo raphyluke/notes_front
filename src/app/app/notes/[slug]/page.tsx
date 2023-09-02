@@ -66,23 +66,6 @@ export default function Page({params} : {params : {slug : string}}) {
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error</div>
 
-  // Drag and drop functionality
-  function handleDragStart(e: any, index: number) {
-    e.dataTransfer.setData('index', index.toString());
-  }
-
-  function handleDragOver(e: any) {
-    e.preventDefault();
-  }
-
-  function handleDrop(e: any, newIndex: number) {
-    const oldIndex = parseInt(e.dataTransfer.getData('index'));
-    const newBlocks = [...blocks];
-    const [removed] = newBlocks.splice(oldIndex, 1);
-    newBlocks.splice(newIndex, 0, removed);
-    setBlocks(newBlocks);
-  }
-
   return (
     <main className="h-full w-9/12 ml-80">
       <div className="fixed top-0 bg-white z-10 flex ml-16 w-full items-center pt-2">

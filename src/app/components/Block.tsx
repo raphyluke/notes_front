@@ -168,6 +168,8 @@ export default function Block({data, index} : any){
                 checked : data.checked,
                 author : data.author,
               }))
+              // but keep the focus on the textarea
+              e.target.focus()
             }
           }
           else {
@@ -187,7 +189,6 @@ export default function Block({data, index} : any){
 
     // Handle the change of the input
     function handleChange(e : any){
-        setContent(e.target.value)
         dispatch(editBlock({
           id : data.id,
           order : data.order,
