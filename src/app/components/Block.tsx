@@ -171,16 +171,18 @@ export default function Block({data, index} : any){
             }
           }
           else {
-            dispatch(deleteBlock({
-              id : data.id,
-              order : data.order,
-              note : data.note,
-              type : data.type,
-              url : data.url,
-              content : data.content,
-              checked : data.checked,
-              author : data.author,
-            }))
+            if (data.content === ""){
+              dispatch(deleteBlock({
+                id : data.id,
+                order : data.order,
+                note : data.note,
+                type : data.type,
+                url : data.url,
+                content : data.content,
+                checked : data.checked,
+                author : data.author,
+              }))
+            }
           }
         }
     }
