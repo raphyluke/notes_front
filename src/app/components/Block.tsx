@@ -152,7 +152,6 @@ export default function Block({data, index} : any){
               index : index,
             }))
           }
-          
         }
         if (e.key === "Backspace"){
           if (data.type === "bullet_list" || data.type === "number_list" || data.type === "todolist"){
@@ -200,6 +199,97 @@ export default function Block({data, index} : any){
           checked : data.checked,
           author : data.author,
         }))
+        if (e.target.value === "/1 "){
+          inputRef.current.value = ""
+          dispatch(editBlock({
+            id : data.id,
+            order : data.order,
+            note : data.note,
+            type : "h1",
+            url : data.url,
+            content : "",
+            checked : data.checked,
+            author : data.author,
+          }))
+        }
+        if (e.target.value === "/2 "){
+          inputRef.current.value = ""
+          dispatch(editBlock({
+            id : data.id,
+            order : data.order,
+            note : data.note,
+            type : "h2",
+            url : data.url,
+            content : "",
+            checked : data.checked,
+            author : data.author,
+          }))
+        }
+        if (e.target.value === "/3 "){
+          inputRef.current.value = ""
+          dispatch(editBlock({
+            id : data.id,
+            order : data.order,
+            note : data.note,
+            type : "h3",
+            url : data.url,
+            content : "",
+            checked : data.checked,
+            author : data.author,
+          }))
+        }
+        if (e.target.value === "/image "){
+          inputRef.current.value = ""
+          dispatch(editBlock({
+            id : data.id,
+            order : data.order,
+            note : data.note,
+            type : "image",
+            url : 'https://via.placeholder.com/150',
+            content : "",
+            checked : data.checked,
+            author : data.author,
+          }))
+        }
+        if (e.target.value === "• "){
+          inputRef.current.value = ""
+          dispatch(editBlock({
+            id : data.id,
+            order : data.order,
+            note : data.note,
+            type : "bullet_list",
+            url : data.url,
+            content : "",
+            checked : data.checked,
+            author : data.author,
+          }))
+        }
+        if (e.target.value === "/todo "){
+          inputRef.current.value = ""
+          dispatch(editBlock({
+            id : data.id,
+            order : data.order,
+            note : data.note,
+            type : "todolist",
+            url : data.url,
+            content : "",
+            checked : data.checked,
+            author : data.author,
+          }))
+        }
+        if (e.target.value === "/p "){
+          inputRef.current.value = ""
+          dispatch(editBlock({
+            id : data.id,
+            order : data.order,
+            note : data.note,
+            type : "text",
+            url : data.url,
+            content : "",
+            checked : data.checked,
+            author : data.author,
+          }))
+        }
     }
 
     function checkboxChange(e : any){
