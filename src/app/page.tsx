@@ -19,10 +19,6 @@ export default function Home() {
       // redirect to ./app
       window.location.href = 'http://localhost:5173/app'
     }
-    if (!localStorage.getItem('token')){
-      // redirect to ./app
-      window.location.href = 'http://localhost:5173/login'
-    }
     
   }, []);
   return (
