@@ -15,11 +15,13 @@ export default function NoteSidebar({note} : any){
     const [selected, setSelected] = useState(false)
     const [open, setOpen] = useState(false)
     const [data, setData] = useState<any>([])
+    const [subnoteNumber, setSubnoteNumber] = useState(0)
 
     const subnotes = useSelector((state: any) => state.subnotes.notes)
 
     useEffect(() =>  {
-        setData(subnotes)
+        setData(subnotes.filter((subnote: any) => subnote.note === note._id))
+        setSubnoteNumber(subnotes.filter((subnote: any) => subnote.note === note._id).length)
         console.log(subnotes)
     }, [subnotes])
 
@@ -70,7 +72,7 @@ export default function NoteSidebar({note} : any){
                 <div key={note._id} className="flex justify-between items-center pb-2">
                     <Link href={"/app/notes/" + note._id}>{note.title}</Link>
                     <div>
-                    {open ? <FontAwesomeIcon icon={faArrowDown} className="hover:cursor-pointer mr-3" onClick={(e) => setOpen(!open)} /> : <FontAwesomeIcon icon={faArrowRight} className="hover:cursor-pointer mr-3" onClick={(e) => setOpen(!open)} /> }
+                    {subnoteNumber ? open ? <FontAwesomeIcon icon={faArrowDown} className="hover:cursor-pointer mr-3" onClick={(e) => setOpen(!open)} /> : <FontAwesomeIcon icon={faArrowRight} className="hover:cursor-pointer mr-3" onClick={(e) => setOpen(!open)} />  : <div></div> }
                     <FontAwesomeIcon icon={faPlus} className="hover:cursor-pointer mr-3" onClick={(e) => handleCreate()}  />
                     <FontAwesomeIcon 
                         icon={faEllipsis} 
@@ -91,7 +93,7 @@ export default function NoteSidebar({note} : any){
                     )}
                 </div>
                 {open && data.map((subnote: any) => (
-                    <li><Link href={"/app/subnotes/" + subnote._id}>{subnote.title}</Link></li>
+                    <li key={subnote._id}><Link href={"/app/subnotes/" + subnote._id}>{subnote.title}</Link></li>
                 ))}
         </div>
 }
