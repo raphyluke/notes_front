@@ -1,10 +1,7 @@
 'use client'
 import { useState } from "react"
-import Link from "next/link"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { getAllNotes } from "../redux/thunks/getAllNotes"
 import jwtDecode from "jwt-decode"
 import {useRouter } from "next/navigation"
