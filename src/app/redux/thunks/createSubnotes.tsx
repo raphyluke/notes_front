@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 
 export const createSubnotes = createAsyncThunk(
     'subnotes/createSubnotes',
-    async ({noteId} : any) => {
+    async (noteId : any) => {
         const token = localStorage.getItem('token') as string;
         const decodedToken = jwtDecode(token) as Record<string, unknown>;
         const email = decodedToken.email as string;

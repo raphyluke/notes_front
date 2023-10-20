@@ -9,6 +9,7 @@ import jwtDecode from 'jwt-decode';
 import { setUser } from '../redux/slices/userSlices';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSignOut } from '@fortawesome/free-solid-svg-icons';
+import { getAllSubnotes } from '../redux/thunks/getAllSubnotes';
 
 export default function Sidebar(){
     // Redux hooks
@@ -23,6 +24,7 @@ export default function Sidebar(){
         const token = jwtDecode(localStorage.getItem('token')!)
         dispatch(setUser(token))
         dispatch(getAllNotes())
+        dispatch(getAllSubnotes())
         /* window.location.href = 'http://localhost:5173/notes/' */
         console.log(notes)
       }
