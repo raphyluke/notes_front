@@ -8,6 +8,7 @@ import { faEllipsis, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { getAllNotes } from "../redux/thunks/getAllNotes"
 import jwtDecode from "jwt-decode"
 import {useRouter } from "next/navigation"
+import NoteSidebar from "./NoteSidebar"
 
 export default function Dropdown(){
     // React hooks
@@ -69,25 +70,7 @@ export default function Dropdown(){
       <div className='m-5 relative'>
         <div className='flex justify-between flex-col'>
           {data.map((note: any) => (
-            <div key={note._id} className="flex justify-between items-center pb-2">
-              <Link href={"/app/notes/" + note._id}>{note.title}</Link>
-              <FontAwesomeIcon 
-                icon={faEllipsis} 
-                className="hover:cursor-pointer" 
-                onClick={() => setSelected(selected === note._id ? null : note._id)} 
-              />
-              {selected === note._id && (
-                <div className="bg-slate-200 w-24 absolute right-0 top-6">
-                  <div 
-                    onClick={() => handleDelete(note)} 
-                    className="flex text-red-600 items-center gap-3 pl-2 pt-1.5 pb-1.5 w-full"
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                    <p className="text-sm hover:cursor-pointer">Delete</p>
-                  </div>
-                </div>
-              )}
-            </div>
+            <NoteSidebar note={note} />
           ))}
         </div>
       </div>
