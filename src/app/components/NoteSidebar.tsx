@@ -8,6 +8,7 @@ import jwtDecode from "jwt-decode";
 import { getAllNotes } from "../redux/thunks/getAllNotes";
 import { useRouter } from "next/navigation";
 import { createSubnotes } from "../redux/thunks/createSubnotes";
+import SubnoteSidebar from "./SubnoteSidebar";
 
 export default function NoteSidebar({note} : any){
     const dispatch = useDispatch<any>()
@@ -54,11 +55,11 @@ export default function NoteSidebar({note} : any){
         })
         .then(async result => {
             if (result.statusCode === 200) {
-            await dispatch(getAllNotes())
-            // check the actual route (without pathname)
-            if (window.location.pathname === '/app/notes/' + note._id) {
-                router.push('/app')
-            }
+                await dispatch(getAllNotes())
+                // check the actual route (without pathname)
+                if (window.location.pathname === '/app/subnotes/' + note._id) {
+                    router.push('/app')
+                }
             }
         })
     }
@@ -81,7 +82,7 @@ export default function NoteSidebar({note} : any){
                     />
                     </div>
                     {selected === note._id && (
-                    <div className="bg-slate-200 w-24 absolute right-0 top-6">
+                    <div className="bg-slate-200 w-24 absolute right-6">
                         <div 
                         onClick={() => handleDelete(note)} 
                         className="flex text-red-600 items-center gap-3 pl-2 pt-1.5 pb-1.5 w-full"
@@ -93,7 +94,7 @@ export default function NoteSidebar({note} : any){
                     )}
                 </div>
                 {open && data.map((subnote: any) => (
-                    <li key={subnote._id}><Link href={"/app/subnotes/" + subnote._id}>{subnote.title}</Link></li>
+                    <SubnoteSidebar subnote={subnote} />
                 ))}
         </div>
 }
