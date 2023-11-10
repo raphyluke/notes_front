@@ -4,6 +4,7 @@ import { RootState, Note } from '../types'
 import { createSubnotes } from '../thunks/createSubnotes'
 import { updateSubnotes } from '../thunks/updateSubnotes'
 import { getAllSubnotes } from '../thunks/getAllSubnotes'
+
 const initialState = {
     notes: [] as Note[],
     createLoading : false,

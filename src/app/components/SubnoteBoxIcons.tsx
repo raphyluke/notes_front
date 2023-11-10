@@ -1,12 +1,11 @@
 import { faAlignJustify, faCheck, faDotCircle, faImage } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { changeTypeBlock } from "../redux/slices/notesSlices"
+import { changeTypeBlock } from "../redux/slices/subnotesSlices"
 import { useDispatch } from "react-redux"
 
 export default function BoxIcons({data, setBoxIcon} : {data : any, setBoxIcon : any}){
 
     const dispatch = useDispatch()
-
     // Change the type of the block
     function changeType(type : any){
         dispatch(changeTypeBlock({
@@ -20,7 +19,6 @@ export default function BoxIcons({data, setBoxIcon} : {data : any, setBoxIcon : 
             author : data.author,
         }))
         setBoxIcon(false)
-        console.log("change type " + type)
     }
     
     return <div className=" grid grid-cols-3 border w-fit bg-white">

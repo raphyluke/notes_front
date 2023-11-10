@@ -4,7 +4,7 @@ import { faPlus, faGripVertical } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {addBlock, editBlock, deleteBlock} from '../redux/slices/subnotesSlices'
-import BoxIcons from './BoxIcons'
+import BoxIcons from './SubnoteBoxIcons'
 import { updateSubnotes } from '@/app/redux/thunks/updateSubnotes'
 // import uuid
 import { v4 as uuidv4 } from 'uuid';
@@ -333,7 +333,7 @@ export default function SubnoteBlock({data, index} : any){
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
           <input onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='font-semibold bg-transparent w-full focus:outline-none ml-2 text-3xl' placeholder='Add a task...' />
-          {boxIcon && <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div>}
+          {boxIcon && <div className='absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div>}
         </div>
       )
     }
@@ -407,12 +407,12 @@ export default function SubnoteBlock({data, index} : any){
     }
     if (data.type === "text") {
       return (
-        <div  key={data.id} className='flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
+        <div  key={data.id} className='a flex m-5 w-full items-center relative'  onMouseOver={(e) => setIsOver(true)} onMouseOut={(e) => setIsOver(false)}>
           {isOver ? <div className='flex w-14 top-[-3px] absolute'>
             <FontAwesomeIcon onClick={(e) => onPlusClick(e)} icon={faPlus} className='m-2' width={10} color='grey' />
             <FontAwesomeIcon icon={faGripVertical} className='m-2' width={10} color='grey' onClick={(e) => setBoxIcon(!boxIcon)} />
           </div> : <div className='w-14 flex'></div>}
-          {boxIcon && <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>x</div></div>}
+          {boxIcon && <div className=' absolute left-0 z-10 flex'><BoxIcons setBoxIcon={setBoxIcon} data={data} /><div className=' bg-white w-5 h-5 flex justify-center items-center' onClick={(e) => setBoxIcon(false)}>xO</div></div>}
           {isOver ? <textarea rows={1} onInput={(e) => textAreaInputRule(e)} onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} className='focus:outline-none overflow-hidden resize-none bg-transparent w-full ml-16 text-lg' placeholder='Add a task...' /> : <textarea onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} ref={inputRef} onInput={(e) => textAreaInputRule(e)} rows={1} className='overflow-hidden resize-none bg-transparent w-full focus:outline-none text-lg ml-2.5 h-fit' placeholder='Add a task...' />}
         </div>
       )

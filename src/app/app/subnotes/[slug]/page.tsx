@@ -3,7 +3,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState, useRef } from 'react'
-import Block from '../../../components/Block'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeNoteName } from '@/app/redux/slices/subnotesSlices'
 import { updateSubnotes } from '@/app/redux/thunks/updateSubnotes'
@@ -76,7 +75,7 @@ export default function Page({params} : {params : {slug : string}}) {
         {blocks && <p className="m-3">{noteNameRef.current?.value}</p>}
       </div>
       <input ref={noteNameRef} onChange={(e) => onChangeName(e)} className='pt-14 w-full focus:outline-none ml-20 mt-6 font-semibold text-xl mb-6 z-20' />
-      {blocks && blocks.map((block: any, index : any) => (<div key={block.id}><SubnoteBlock data={block} index={index} /></div>))}
+      {blocks && blocks.map((block: any, index : any) => (<div className='a' key={block.id}><SubnoteBlock data={block} index={index} /></div>))}
     </main>
   )
 }
