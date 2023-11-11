@@ -37,10 +37,6 @@ export default function SubnoteBlock({data, index} : any){
         inputRef.current.style.height = 'auto';
         inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
       }
-      if (inputRef.current){
-        inputRef.current.focus();
-        inputRef.current.setSelectionRange(content.length, content.length);
-      }
     }, [])
 
     // Update the notes

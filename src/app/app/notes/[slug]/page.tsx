@@ -92,6 +92,7 @@ export default function Page({params} : {params : {slug : string}}) {
       </div>
       <input ref={noteNameRef} onChange={(e) => onChangeName(e)} className='pt-14 w-full focus:outline-none ml-20 mt-6 font-semibold text-xl mb-6 z-20' />
       {blocks && blocks.map((block: any, index : any) => (<div key={block.id}><Block data={block} index={index} /></div>))}
+      <div className='h-10'></div>
     </main>
   )
 }
